@@ -1,0 +1,856 @@
+<!doctype html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DTC Economics Model | Kappa Strategy</title>
+  <meta name="description" content="Model direct-to-consumer channel economics: contribution, operating profit, CAC, LTV:CAC, MER, break-even conversion rate and a 12-month projection.">
+  <link rel="canonical" href="https://kappastrategy.com/dtc-economics-model/">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:title" content="DTC Economics Model | Kappa Strategy">
+  <meta property="og:description" content="Model direct-to-consumer channel economics: contribution, operating profit, CAC, LTV:CAC, MER, break-even conversion rate and a 12-month projection.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kappastrategy.com/dtc-economics-model/">
+  <meta property="og:site_name" content="Kappa Strategy">
+  <meta property="og:image" content="https://kappastrategy.com/assets/images/kappa-strategy-social-1200x630.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kappa Strategy: Turn digital complexity into focused, measurable growth.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DTC Economics Model | Kappa Strategy">
+  <meta name="twitter:description" content="Model direct-to-consumer channel economics: contribution, operating profit, CAC, LTV:CAC, MER, break-even conversion rate and a 12-month projection.">
+  <meta name="twitter:image" content="https://kappastrategy.com/assets/images/kappa-strategy-social-1200x630.png">
+  <meta name="twitter:image:alt" content="Kappa Strategy: Turn digital complexity into focused, measurable growth.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="64x64" href="/assets/images/favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/inter-latin-wght-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/newsreader-latin-wght-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/site.css?v=20260903">
+  <!-- Google tag (gtag.js): site-wide pattern, identical to the other site pages -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-95KHW9N730"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-95KHW9N730");
+  </script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "@id": "https://kappastrategy.com/dtc-economics-model/#app", "name": "DTC Economics Model", "url": "https://kappastrategy.com/dtc-economics-model/", "description": "Model direct-to-consumer channel economics: contribution, operating profit, CAC, LTV:CAC, MER, break-even conversion rate and a 12-month projection.", "applicationCategory": "BusinessApplication", "operatingSystem": "Any", "isAccessibleForFree": true, "provider": {"@type": "Organization", "@id": "https://kappastrategy.com/#organization", "name": "Kappa Strategy", "url": "https://kappastrategy.com/"}}, {"@type": "FAQPage", "@id": "https://kappastrategy.com/dtc-economics-model/#faq", "mainEntity": [{"@type": "Question", "name": "What is MER?", "acceptedAnswer": {"@type": "Answer", "text": "MER (marketing efficiency ratio) is net revenue divided by total marketing spend, including ad spend, agency fees, creators and tools. It shows how much revenue each marketing dollar supports across all channels, without relying on platform attribution. To cover marketing, MER must be at least 1 divided by the contribution margin before marketing; covering fixed costs requires more."}}, {"@type": "Question", "name": "What LTV:CAC ratio is healthy?", "acceptedAnswer": {"@type": "Answer", "text": "A common rule of thumb is 3 or higher, where lifetime value is measured as contribution after product, fulfillment, payment and returns costs, not revenue. Below about 1.5, acquisition is unlikely to pay back. The right threshold also depends on how quickly customers repurchase and how much cash the business can commit before payback."}}, {"@type": "Question", "name": "How is the break-even conversion rate calculated?", "acceptedAnswer": {"@type": "Answer", "text": "Break-even conversion rate = current conversion rate × (marketing + fixed costs) ÷ contribution before marketing (CM1). It assumes traffic, marketing spend, order value and unit costs stay the same, so contribution rises in proportion to orders. If contribution per order is zero or negative, no conversion rate reaches break-even."}}]}]}</script>
+  <script src="/assets/js/site.js?v=20260905t1" defer></script>
+  <script src="/assets/js/technical.js?v=20260808" defer></script>
+<style>
+/* ===== DTC Economics Model: all rules scoped under .dtc-model =====
+   Brand tokens map to the site's variables (site.css) with standalone fallbacks. */
+.dtc-model {
+  --dm-blue: var(--blue, #1d4ed8);
+  --dm-blue-dark: var(--blue-dark, #16347d);
+  --dm-navy: var(--blue-deep, #0b1f3a);
+  --dm-blue-light: var(--blue-light, #eff6ff);
+  --dm-brass: var(--brass, #9a6a1f);
+  --dm-ink: var(--ink, #0f172a);
+  --dm-slate: var(--slate, #475569);
+  --dm-muted: var(--muted, #64748b);
+  --dm-surface: var(--surface, #ffffff);
+  --dm-surface-alt: var(--surface-alt, #f8fafc);
+  --dm-border: var(--border, #dbe3ee);
+  --dm-radius: 0.8rem;
+  --dm-display: var(--display, "Newsreader", Georgia, "Times New Roman", serif);
+  --dm-body: var(--body, Inter, system-ui, -apple-system, "Segoe UI", sans-serif);
+  --dm-chart-revenue: #bfd2f3;
+  --dm-chart-profit: var(--dm-navy);
+  --dm-chart-negative: #b42318;
+  --dm-good: #166534; --dm-good-bg: #e7f6ec;
+  --dm-warn: #8a5a0b; --dm-warn-bg: #fbf4e6;
+  --dm-bad: #a8201a;  --dm-bad-bg: #fdecea;
+  color: var(--dm-ink);
+  font-family: var(--dm-body);
+  padding: 3rem 0 4.5rem;
+}
+.dtc-model *, .dtc-model *::before, .dtc-model *::after { box-sizing: border-box; }
+.dtc-model section { padding: 0; } /* neutralize site.css section padding; cards set their own */
+.dtc-model [hidden] { display: none !important; }
+.dtc-model .wrap { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+.dtc-model .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.dtc-model .num { font-variant-numeric: tabular-nums; }
+.dtc-model .muted { color: var(--dm-slate); }
+.dtc-model p { margin: 0 0 .75rem; }
+.dtc-model a.text-link { color: var(--dm-blue); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.dtc-model a.text-link:hover { color: var(--dm-blue-dark); }
+
+/* Intro */
+.dtc-model .dm-intro { max-width: 860px; margin-bottom: 2rem; }
+.dtc-model .dm-intro h1 { font-family: var(--dm-display); font-size: clamp(2.3rem, 4.6vw, 3.6rem); line-height: 1.08; max-width: 22ch; margin: 1rem 0 1.1rem; }
+.dtc-model .dm-intro .intro { font-size: 1.12rem; line-height: 1.7; color: var(--dm-ink); }
+.dtc-model .dm-intro p { line-height: 1.7; color: var(--dm-slate); }
+.dtc-model .dm-crumb { font-size: .9rem; margin-bottom: .9rem; }
+
+.dtc-model h2 { font-family: var(--dm-display); font-weight: 600; font-size: clamp(1.45rem, 2.4vw, 1.8rem); line-height: 1.2; margin: 0 0 .75rem; letter-spacing: -0.01em; }
+.dtc-model h3 { font-family: var(--dm-body); font-size: 1rem; font-weight: 700; margin: 0 0 .5rem; letter-spacing: -0.01em; }
+
+/* Toolbar */
+.dtc-model .dm-toolbar { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-bottom: 1rem; }
+.dtc-model .dm-toolbar .dm-preset { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-right: auto; }
+.dtc-model .dm-toolbar label { font-size: .85rem; font-weight: 700; }
+.dtc-model .dm-note { font-size: .8rem; color: var(--dm-slate); width: 100%; margin: 0; }
+.dtc-model select { font: inherit; font-size: .9rem; padding: .55rem .7rem; border: 1px solid var(--dm-border); border-radius: .6rem; background: var(--dm-surface); color: var(--dm-ink); max-width: 100%; min-height: 44px; }
+.dtc-model .dm-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: .55rem .9rem; border: 1px solid var(--dm-border); border-radius: .6rem; background: var(--dm-surface); color: var(--dm-ink); font: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; }
+.dtc-model .dm-btn:hover { border-color: #94a3b8; }
+.dtc-model .dm-btn-primary { background: var(--dm-blue); border-color: var(--dm-blue); color: #fff; }
+.dtc-model .dm-btn-primary:hover { background: var(--dm-blue-dark); border-color: var(--dm-blue-dark); }
+.dtc-model .dm-status { font-size: .85rem; color: var(--dm-good); min-height: 1.3em; margin: 0 0 .5rem; }
+
+/* Layout */
+.dtc-model .dm-layout { display: grid; grid-template-columns: minmax(0, 370px) minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+@media (max-width: 960px) { .dtc-model .dm-layout { grid-template-columns: minmax(0, 1fr); } }
+.dtc-model .dm-card { background: var(--dm-surface); border: 1px solid var(--dm-border); border-radius: var(--dm-radius); padding: 1.15rem; min-width: 0; }
+.dtc-model .dm-stack > * + * { margin-top: 1rem; }
+
+/* Inputs */
+.dtc-model .dm-inputs { background: var(--dm-surface-alt); }
+.dtc-model fieldset { border: 0; padding: 0; margin: 0 0 1.1rem; min-width: 0; }
+.dtc-model legend { font-family: var(--dm-display); font-weight: 600; font-size: 1.15rem; color: var(--dm-ink); padding: 0; margin-bottom: .5rem; }
+.dtc-model .dm-field { margin-bottom: .85rem; }
+.dtc-model .dm-field-head { display: flex; align-items: center; gap: .4rem; margin-bottom: .2rem; }
+.dtc-model .dm-field-head label { font-size: .85rem; font-weight: 600; flex: 1; min-width: 0; }
+.dtc-model .dm-tip-btn { width: 26px; height: 26px; flex: none; border-radius: 50%; border: 1px solid var(--dm-border); background: var(--dm-surface); color: var(--dm-slate); font: inherit; font-size: .75rem; font-weight: 700; line-height: 1; cursor: pointer; padding: 0; }
+.dtc-model .dm-tip-btn[aria-expanded="true"] { background: var(--dm-blue-light); color: var(--dm-blue-dark); border-color: var(--dm-blue); }
+.dtc-model .dm-tip { font-size: .8rem; line-height: 1.5; color: var(--dm-slate); background: var(--dm-surface); border: 1px solid var(--dm-border); border-radius: .5rem; padding: .45rem .6rem; margin: 0 0 .4rem; }
+.dtc-model .dm-row { display: flex; gap: .6rem; align-items: center; }
+.dtc-model .dm-row input[type="range"] { flex: 1; min-width: 0; accent-color: var(--dm-blue); margin: 0; }
+.dtc-model .dm-numbox { display: flex; align-items: center; border: 1px solid var(--dm-border); border-radius: .5rem; background: var(--dm-surface); width: 118px; flex: none; }
+.dtc-model .dm-numbox:focus-within { outline: 3px solid #60a5fa; outline-offset: 2px; }
+.dtc-model .dm-numbox span { padding: 0 .4rem; color: var(--dm-slate); font-size: .85rem; }
+.dtc-model .dm-numbox input { border: 0; width: 100%; min-width: 0; padding: .4rem .4rem; text-align: right; background: transparent; font: inherit; font-size: .9rem; color: var(--dm-ink); font-variant-numeric: tabular-nums; }
+.dtc-model .dm-numbox input:focus { outline: none; }
+.dtc-model .dm-implied { font-size: .85rem; background: var(--dm-blue-light); border-radius: .5rem; padding: .5rem .7rem; margin: 0; }
+
+/* KPIs */
+.dtc-model .dm-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+@media (max-width: 1100px) { .dtc-model .dm-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.dtc-model .dm-kpi { background: var(--dm-surface); border: 1px solid var(--dm-border); border-radius: var(--dm-radius); padding: .9rem; min-width: 0; }
+.dtc-model .dm-kpi .k-label { font-size: .78rem; color: var(--dm-slate); font-weight: 600; }
+.dtc-model .dm-kpi .k-value { font-size: 1.45rem; font-weight: 700; color: var(--dm-ink); margin: .1rem 0; overflow-wrap: anywhere; letter-spacing: -0.01em; }
+.dtc-model .dm-kpi .k-sub { font-size: .78rem; color: var(--dm-slate); line-height: 1.45; }
+.dtc-model .dm-kpi .k-delta { font-size: .78rem; font-weight: 700; margin-top: .3rem; }
+.dtc-model .delta-good { color: var(--dm-good); } .dtc-model .delta-bad { color: var(--dm-bad); } .dtc-model .delta-flat { color: var(--dm-slate); }
+.dtc-model .dm-baseline { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; justify-content: space-between; font-size: .85rem; }
+.dtc-model .dm-baseline p { margin: 0; }
+
+/* Tables and stats */
+.dtc-model .dm-table-wrap { overflow-x: auto; }
+.dtc-model table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+.dtc-model th, .dtc-model td { padding: .45rem .5rem; border-bottom: 1px solid var(--dm-border); text-align: right; font-variant-numeric: tabular-nums; }
+.dtc-model th:first-child, .dtc-model td:first-child { text-align: left; }
+.dtc-model thead th { font-size: .75rem; color: var(--dm-slate); font-weight: 600; }
+.dtc-model tr.subtotal td { font-weight: 700; background: var(--dm-surface-alt); }
+.dtc-model tr.total td { font-weight: 700; border-top: 2px solid var(--dm-ink); }
+.dtc-model td.neg { color: var(--dm-bad); }
+.dtc-model .dm-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+@media (max-width: 680px) { .dtc-model .dm-grid-2 { grid-template-columns: minmax(0, 1fr); } }
+.dtc-model dl.dm-stats { display: grid; grid-template-columns: 1fr auto; gap: .35rem .75rem; margin: 0; font-size: .85rem; }
+.dtc-model dl.dm-stats dt { color: var(--dm-slate); }
+.dtc-model dl.dm-stats dd { margin: 0; text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.dtc-model .dm-small { font-size: .8rem; color: var(--dm-slate); }
+
+/* Charts */
+.dtc-model .dm-chart { width: 100%; height: auto; display: block; }
+.dtc-model .dm-chart text { font-family: var(--dm-body); font-size: 11px; fill: var(--dm-slate); }
+.dtc-model .dm-legend { display: flex; flex-wrap: wrap; gap: .9rem; font-size: .8rem; color: var(--dm-slate); margin-bottom: .4rem; }
+.dtc-model .dm-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 5px; }
+.dtc-model .dm-legend i.line { height: 3px; border-radius: 2px; vertical-align: 3px; width: 16px; }
+.dtc-model .dm-chart-box { position: relative; }
+.dtc-model .dm-chart-tip { position: absolute; pointer-events: none; background: var(--dm-navy); color: #fff; font-size: .75rem; line-height: 1.45; padding: .35rem .5rem; border-radius: .4rem; white-space: nowrap; transform: translate(-50%, -110%); }
+.dtc-model details.dm-toggle summary { cursor: pointer; font-size: .85rem; color: var(--dm-blue); margin-top: .5rem; }
+
+.dtc-model .dm-lever-headline { font-weight: 600; }
+.dtc-model .dm-levers { list-style: none; margin: 0; padding: 0; }
+.dtc-model .dm-lever { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr) 96px; gap: .6rem; align-items: center; padding: .3rem 0; font-size: .85rem; }
+@media (max-width: 560px) { .dtc-model .dm-lever { grid-template-columns: minmax(0, 1fr) 88px; } .dtc-model .dm-lever .track { grid-column: 1 / -1; grid-row: 2; } }
+.dtc-model .track { position: relative; height: 14px; background: var(--dm-surface-alt); border-radius: 4px; }
+.dtc-model .track .bar { position: absolute; top: 0; height: 100%; border-radius: 4px; background: var(--dm-blue); }
+.dtc-model .track .bar.neg { background: var(--dm-chart-negative); }
+.dtc-model .track .zero { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--dm-slate); }
+.dtc-model .dm-lever .val { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.dtc-model .dm-checks { list-style: none; margin: 0; padding: 0; }
+.dtc-model .dm-check { display: grid; grid-template-columns: 74px minmax(0, 1fr) auto; gap: .6rem; align-items: start; padding: .55rem 0; border-bottom: 1px solid var(--dm-border); font-size: .85rem; }
+.dtc-model .dm-check:last-child { border-bottom: 0; }
+.dtc-model .pill { display: inline-block; text-align: center; font-size: .68rem; font-weight: 800; padding: .15rem .5rem; border-radius: 999px; white-space: nowrap; text-transform: uppercase; letter-spacing: .05em; }
+.dtc-model .pill.green { color: var(--dm-good); background: var(--dm-good-bg); }
+.dtc-model .pill.amber { color: var(--dm-warn); background: var(--dm-warn-bg); }
+.dtc-model .pill.red { color: var(--dm-bad); background: var(--dm-bad-bg); }
+.dtc-model .pill.na { color: var(--dm-slate); background: var(--dm-surface-alt); }
+.dtc-model .dm-check .rule { color: var(--dm-slate); font-size: .78rem; }
+.dtc-model .dm-check .cval { font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
+
+/* Method, FAQ and closing */
+.dtc-model .dm-method summary { cursor: pointer; font-family: var(--dm-display); font-weight: 600; font-size: 1.25rem; }
+.dtc-model .dm-method ul { padding-left: 1.2rem; margin: .75rem 0; }
+.dtc-model .dm-method li { line-height: 1.65; margin-bottom: .4rem; }
+.dtc-model .dm-faq { max-width: 860px; margin-top: 3rem; }
+.dtc-model .dm-faq h2 { font-size: clamp(1.7rem, 3vw, 2.2rem); margin-bottom: 1rem; }
+.dtc-model .dm-faq h3 { font-size: 1.08rem; margin-top: 1.4rem; }
+.dtc-model .dm-faq p { line-height: 1.75; }
+.dtc-model .service-contact { max-width: 860px; border-top: 1px solid #e2e8f0; margin-top: 2.5rem; padding-top: 1rem; }
+.dtc-model .service-contact h2 { font-size: clamp(1.7rem, 3vw, 2.2rem); margin: 1.5rem 0 1rem; }
+.dtc-model .service-contact p { line-height: 1.75; }
+.dtc-model .service-related { margin-top: 1.25rem; font-size: .95rem; color: var(--dm-slate); }
+.dtc-model .actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.5rem; }
+/* Standalone fallback for the site's .button styles (site.css takes over on the live site). */
+.dtc-model .button { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; padding: .78rem 1.15rem; border: 1px solid var(--dm-border); border-radius: .7rem; font-size: .91rem; font-weight: 750; text-decoration: none; }
+.dtc-model .button-primary { border-color: var(--dm-blue); color: #fff; background: var(--dm-blue); }
+.dtc-model .button-secondary { background: #fff; color: var(--dm-ink); }
+
+@media print {
+  .site-header, .site-footer, .skip-link { display: none !important; }
+  .dtc-model { padding: 0; font-size: 11px; }
+  .dtc-model .dm-layout { grid-template-columns: 1fr; }
+  .dtc-model .dm-toolbar, .dtc-model .dm-tip-btn, .dtc-model .service-contact, .dtc-model .dm-no-print,
+  .dtc-model details.dm-toggle, .dtc-model input[type="range"], .dtc-model .dm-status { display: none !important; }
+  .dtc-model .dm-card, .dtc-model .dm-kpi { break-inside: avoid; }
+  .dtc-model .dm-method > *:not(summary) { display: block; }
+  .dtc-model .dm-numbox { border: 0; }
+}
+</style></head><body id="top"><a class="skip-link" href="#main">Skip to main content</a><!-- HEADER: copied unchanged from site/dtc-strategy-business-cases/index.html --><header class="site-header">
+    <div class="wrap nav-shell">
+      <a class="brand" href="/" aria-label="Kappa Strategy home">
+        <img class="brand-mark" src="/assets/images/kappa-mark.svg" alt="" width="38" height="38">
+        <span>Kappa Strategy</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="/#services">Services</a>
+        <a href="/#work">Selected Work</a>
+        <a href="/#about">About</a>
+        <a href="/#contact">Contact</a>
+        <a class="nav-cta" href="/#contact" data-analytics-event="contact_cta_click" data-analytics-placement="header">Start a conversation</a>
+      </nav>
+      <button class="menu-button" type="button" aria-label="Open main menu" aria-expanded="false" aria-controls="mobile-navigation" data-menu-button>
+        <span class="menu-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation" data-mobile-nav hidden>
+      <a href="/#services">Services</a>
+      <a href="/#work">Selected Work</a>
+      <a href="/#about">About</a>
+      <a href="/#contact">Contact</a>
+      <a class="nav-cta" href="/#contact" data-analytics-event="contact_cta_click" data-analytics-placement="mobile_menu">Start a conversation</a>
+    </nav>
+  </header><!-- /HEADER --><main id="main"><div class="dtc-model" id="dtc-model"><div class="wrap">
+
+  <section class="dm-intro" id="dtc-model-intro">
+    <p class="dm-crumb"><a class="text-link" href="/dtc-strategy-business-cases/">Commerce Growth &amp; Business Cases</a></p>
+    <p class="eyebrow">DTC Economics Model</p>
+    <h1>Model the economics of a direct-to-consumer channel.</h1>
+    <p class="intro">Enter monthly assumptions for traffic, conversion, order value, acquisition, retention and cost. The model shows contribution, operating profit, customer acquisition cost, a 12-month projection and the assumptions with the largest effect on profit.</p>
+    <p>The three scenarios are illustrative, not industry benchmarks. Replace them with your own figures. Inputs stay in your browser and are not stored; use “Copy scenario link” to keep or share a scenario.</p>
+  </section>
+
+  <section id="dtc-model-calculator" aria-label="DTC Economics Model calculator">
+    <div class="dm-toolbar">
+      <div class="dm-preset">
+        <label for="dm-preset">Scenario</label>
+        <select id="dm-preset" aria-describedby="dm-preset-note"></select>
+      </div>
+      <button type="button" class="dm-btn" id="dm-reset">Reset</button>
+      <button type="button" class="dm-btn dm-btn-primary" id="dm-share">Copy scenario link</button>
+      <button type="button" class="dm-btn" id="dm-copy">Copy summary</button>
+      <button type="button" class="dm-btn" id="dm-print">Print</button>
+      <p class="dm-note" id="dm-preset-note">Illustrative scenarios, not industry benchmarks. All figures are monthly.</p>
+    </div>
+    <p class="dm-status" id="dm-status" role="status" aria-live="polite"></p>
+
+    <div class="dm-layout">
+      <form class="dm-card dm-inputs" id="dm-inputs" aria-label="Monthly assumptions" novalidate>
+        <div id="dm-fields"></div>
+      </form>
+
+      <div class="dm-stack" id="dm-results">
+        <section aria-labelledby="dm-kpi-h">
+          <h2 id="dm-kpi-h" class="sr-only">Key results</h2>
+          <div class="dm-kpis" id="dm-kpis"></div>
+          <p id="dm-live" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+        </section>
+
+        <div class="dm-card dm-baseline dm-no-print">
+          <p id="dm-baseline-status" class="muted">Save a baseline to compare scenarios.</p>
+          <span class="dm-toolbar" style="margin:0">
+            <button type="button" class="dm-btn" id="dm-save-baseline">Save as baseline</button>
+            <button type="button" class="dm-btn" id="dm-clear-baseline" hidden>Clear baseline</button>
+          </span>
+        </div>
+
+        <section class="dm-card" aria-labelledby="dm-levers-h">
+          <h2 id="dm-levers-h">Profit levers</h2>
+          <p class="dm-lever-headline" id="dm-lever-headline"></p>
+          <p class="dm-small">Each assumption is improved by 10% on its own. Bars show the change in 12-month operating profit. Effects are not additive.</p>
+          <ol class="dm-levers" id="dm-levers"></ol>
+        </section>
+
+        <section class="dm-card" aria-labelledby="dm-proj-h">
+          <h2 id="dm-proj-h">12-month projection</h2>
+          <div class="dm-legend" aria-hidden="true">
+            <span><i style="background:var(--dm-chart-revenue)"></i>Net revenue</span>
+            <span><i class="line" style="background:var(--dm-chart-profit)"></i>Operating profit</span>
+          </div>
+          <div class="dm-chart-box" id="dm-proj-chart"></div>
+          <details class="dm-toggle">
+            <summary>View projection as a table</summary>
+            <div class="dm-table-wrap" id="dm-proj-table"></div>
+          </details>
+          <div class="dm-grid-2" style="margin-top:1rem">
+            <div>
+              <h3>12-month totals</h3>
+              <dl class="dm-stats" id="dm-proj-totals"></dl>
+            </div>
+            <div>
+              <h3>Path to profit</h3>
+              <dl class="dm-stats" id="dm-proj-path"></dl>
+            </div>
+          </div>
+        </section>
+
+        <div class="dm-grid-2">
+          <section class="dm-card" aria-labelledby="dm-health-h">
+            <h2 id="dm-health-h">Health checks</h2>
+            <p class="dm-small">Rules of thumb, not standards. Appropriate thresholds depend on category, margin structure and cash position.</p>
+            <ul class="dm-checks" id="dm-checks"></ul>
+          </section>
+          <section class="dm-card" aria-labelledby="dm-unit-h">
+            <h2 id="dm-unit-h">Unit economics</h2>
+            <dl class="dm-stats" id="dm-unit"></dl>
+          </section>
+        </div>
+
+        <section class="dm-card" aria-labelledby="dm-pl-h">
+          <h2 id="dm-pl-h">Monthly P&amp;L (month 1)</h2>
+          <div class="dm-table-wrap" id="dm-pl"></div>
+        </section>
+
+        <section class="dm-card">
+          <details class="dm-method">
+            <summary>How this model works</summary>
+            <ul>
+              <li><strong>Orders</strong> = sessions × conversion rate. <strong>Gross revenue</strong> = orders × average order value after discounts.</li>
+              <li><strong>Net revenue</strong> deducts returns and refunds. Returned items are assumed to be restocked, so product cost (COGS) applies to net revenue only.</li>
+              <li><strong>Payment fees</strong> apply to gross revenue, because processors generally retain fees on refunded orders.</li>
+              <li><strong>Fulfillment</strong> is a cost per order, net of any shipping charged to customers.</li>
+              <li><strong>CM1</strong> (contribution before marketing) = net revenue − COGS − fulfillment − payment fees. <strong>CM2</strong> deducts all marketing. <strong>Operating profit</strong> deducts fixed costs. It is pre-tax and excludes inventory purchases and other working capital.</li>
+              <li><strong>Ad spend</strong> = sessions × paid share × cost per paid session. <strong>Blended CAC</strong> = all marketing ÷ new customers, where new customers = orders × (1 − returning-customer share).</li>
+              <li><strong>Lifetime orders</strong> per customer are estimated as 1 ÷ (1 − returning-customer share). This steady-state estimate is not a cohort analysis. <strong>LTV</strong> = contribution per order × lifetime orders.</li>
+              <li><strong>Projection:</strong> sessions grow at the monthly growth rate. All rates stay constant, ad spend scales with sessions, and other marketing and fixed costs stay flat.</li>
+              <li><strong>Profit levers</strong> improve one assumption by 10% at a time and rerun the 12-month projection.</li>
+            </ul>
+            <p class="dm-small"><strong>Illustrative planning tool, not financial advice.</strong> Validate results against your own financial records before making decisions.</p>
+          </details>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="dm-faq" id="dtc-model-faq" aria-labelledby="dm-faq-h">
+    <h2 id="dm-faq-h">Questions about the model</h2>
+    <h3>What is MER?</h3>
+    <p>MER (marketing efficiency ratio) is net revenue divided by total marketing spend, including ad spend, agency fees, creators and tools. It shows how much revenue each marketing dollar supports across all channels, without relying on platform attribution. To cover marketing, MER must be at least 1 ÷ the contribution margin before marketing. With a 50% margin, that is 2.0; covering fixed costs requires more.</p>
+    <h3>What LTV:CAC ratio is healthy?</h3>
+    <p>A common rule of thumb is 3 or higher, where lifetime value is measured as contribution after product, fulfillment, payment and returns costs, not revenue. Below about 1.5, acquisition is unlikely to pay back. The right threshold also depends on how quickly customers repurchase and how much cash the business can commit before payback.</p>
+    <h3>How is the break-even conversion rate calculated?</h3>
+    <p>Break-even conversion rate = current conversion rate × (marketing + fixed costs) ÷ contribution before marketing (CM1). It assumes traffic, marketing spend, order value and unit costs stay the same, so contribution rises in proportion to orders. If contribution per order is zero or negative, no conversion rate reaches break-even.</p>
+  </section>
+
+  <section class="service-contact" id="dtc-model-contact">
+    <h2>Discuss the opportunity in front of you</h2>
+    <p>You do not need a finished brief to begin. A conversation can help establish what needs to be assessed and whether Kappa Strategy is a useful fit.</p>
+    <div class="actions"><a class="button button-primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2xn9HAUiWUvtgFjHuvZILUJh_v0C-vp0MPiO6-gokwmCPGPKz0zCmj-6OFvUYjEnIJy_RnRkiy" target="_blank" rel="noopener" data-analytics-event="intro_call_click" data-analytics-placement="dtc_model">Arrange a 30-minute conversation</a><a class="button button-secondary" href="/#contact" data-analytics-event="contact_cta_click" data-analytics-placement="dtc_model">Send a note instead</a></div>
+    <p class="service-related">Related service: <a class="text-link" href="/dtc-strategy-business-cases/">Commerce Growth &amp; Business Cases</a></p>
+  </section>
+
+</div></div></main><!-- FOOTER: copied unchanged from site/dtc-strategy-business-cases/index.html --><footer class="site-footer">
+    <div class="wrap footer-inner">
+      <a class="brand" href="/" aria-label="Kappa Strategy home"><img class="brand-mark" src="/assets/images/kappa-mark.svg" alt="" width="38" height="38"><span>Kappa Strategy</span></a>
+      <nav class="footer-nav" aria-label="Footer navigation"><a href="/#services">Services</a><a href="/#work">Selected Work</a><a href="/#about">About</a><a href="/#contact">Contact</a><a href="https://www.linkedin.com/in/kbausch/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="/privacy/">Privacy</a></nav>
+      <p class="copyright">© 2026 Kappa Strategy. All rights reserved.</p>
+    </div>
+  </footer><!-- /FOOTER -->
+
+<script type="module">
+import { PRESETS, DEFAULT_PRESET, MAX_RETURNING_SHARE, runModel, encodeScenario, decodeScenario } from './model.js?v=20261025'; // bump ?v= whenever model.js changes (.htaccess caches .js for 30 days)
+
+const CURRENCY = 'USD';
+const LOCALE = 'en-US';
+
+/* ----- Field definitions (UI units; % fields are converted to decimals for the model) ----- */
+const SECTIONS = [
+  { title: 'Traffic and conversion', fields: [
+    { key: 'sessions', label: 'Monthly sessions', unit: 'count', min: 0, max: 1000000, step: 1000, inputStep: 100,
+      tip: 'Total website visits per month from all sources.' },
+    { key: 'cvr', label: 'Conversion rate', unit: 'pct', min: 0, max: 10, step: 0.1, inputStep: 0.01,
+      tip: 'Orders divided by sessions. 2.2% means 22 orders per 1,000 visits.' },
+    { key: 'aov', label: 'Average order value', unit: 'usd', min: 0, max: 500, step: 1, inputStep: 0.01,
+      tip: 'Average order amount after discounts and before returns. Excludes sales tax and shipping charged.' },
+    { key: 'trafficGrowth', label: 'Monthly traffic growth', unit: 'pct', min: -10, max: 20, step: 0.5, inputStep: 0.1, allowNegative: true,
+      tip: 'Monthly change in sessions used for the 12-month projection. 3% per month is about 43% over a year.' },
+  ]},
+  { title: 'Acquisition', fields: [
+    { key: 'paidShare', label: 'Paid share of sessions', unit: 'pct', min: 0, max: 100, step: 1, inputStep: 0.1,
+      tip: 'Share of sessions that come from paid media such as search, social and display advertising.' },
+    { key: 'cpc', label: 'Cost per paid session', unit: 'usd', min: 0, max: 5, step: 0.05, inputStep: 0.01,
+      tip: 'Blended cost per click across paid channels: total ad spend divided by paid sessions.' },
+    { key: 'otherMarketing', label: 'Other monthly marketing', unit: 'usd', min: 0, max: 100000, step: 500, inputStep: 1,
+      tip: 'Marketing costs other than ad media: agency fees, creators, email and SMS platforms, and other tools.' },
+  ], extra: 'implied-ad' },
+  { title: 'Retention', fields: [
+    { key: 'returningShare', label: 'Returning-customer share of orders', unit: 'pct', min: 0, max: MAX_RETURNING_SHARE * 100, step: 1, inputStep: 0.1,
+      tip: 'Share of orders placed by existing customers (Shopify reports this as the returning customer rate). Capped at 90%.' },
+  ]},
+  { title: 'Unit costs', fields: [
+    { key: 'cogsPct', label: 'COGS (% of net revenue)', unit: 'pct', min: 0, max: 90, step: 1, inputStep: 0.1,
+      tip: 'Landed product cost, including inbound freight and duties, as a share of net revenue.' },
+    { key: 'fulfillmentPerOrder', label: 'Fulfillment and shipping per order', unit: 'usd', min: 0, max: 40, step: 0.5, inputStep: 0.01,
+      tip: 'Pick, pack, packaging and postage per order, less any shipping fee paid by the customer.' },
+    { key: 'processingPct', label: 'Payment processing (% of gross)', unit: 'pct', min: 0, max: 6, step: 0.1, inputStep: 0.01,
+      tip: 'Card, wallet and buy-now-pay-later fees as a share of gross revenue.' },
+    { key: 'returnsPct', label: 'Returns and refunds (% of gross)', unit: 'pct', min: 0, max: 40, step: 0.5, inputStep: 0.1,
+      tip: 'Revenue returned through refunds as a share of gross revenue.' },
+  ]},
+  { title: 'Overhead', fields: [
+    { key: 'fixedCosts', label: 'Fixed operating costs per month', unit: 'usd', min: 0, max: 500000, step: 1000, inputStep: 1,
+      tip: 'Costs that do not vary with orders, such as the channel team, software, facilities and professional fees.' },
+  ]},
+];
+const FIELDS = SECTIONS.flatMap((s) => s.fields);
+const FIELD = Object.fromEntries(FIELDS.map((f) => [f.key, f]));
+
+/* ----- Formatting ----- */
+const fmtMoney0 = new Intl.NumberFormat(LOCALE, { style: 'currency', currency: CURRENCY, maximumFractionDigits: 0 });
+const fmtMoney2 = new Intl.NumberFormat(LOCALE, { style: 'currency', currency: CURRENCY, minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmtInt = new Intl.NumberFormat(LOCALE, { maximumFractionDigits: 0 });
+const NA = 'n/a';
+const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
+const money = (v, cents = false) => (isNum(v) ? (cents ? fmtMoney2 : fmtMoney0).format(v) : NA);
+const signedMoney = (v) => (isNum(v) ? (v > 0 ? '+' : v < 0 ? '−' : '') + fmtMoney0.format(Math.abs(v)) : NA);
+const pct = (v, d = 1) => (isNum(v) ? (v * 100).toFixed(d) + '%' : NA);
+const ratio = (v) => (isNum(v) ? v.toFixed(2) + '×' : NA);
+const count = (v) => (isNum(v) ? fmtInt.format(v) : NA);
+function compactMoney(v) {
+  const a = Math.abs(v), s = v < 0 ? '−' : '';
+  if (a >= 1e6) return s + '$' + (a / 1e6).toFixed(a >= 1e7 ? 0 : 1) + 'M';
+  if (a >= 1e3) return s + '$' + (a / 1e3).toFixed(a >= 1e5 ? 0 : 1) + 'K';
+  return s + '$' + a.toFixed(0);
+}
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function round(v, d) { const p = Math.pow(10, d); return Math.round(v * p) / p; }
+
+/* ----- State ----- */
+let presetKey = DEFAULT_PRESET; // a PRESETS key, or 'link' for a scenario opened from a link
+let linkInputs = null;          // model inputs decoded from #s=...
+let ui = {};                    // input values in UI units
+let baseline = null;            // pinned { month } for comparison (memory only)
+let interacted = false;
+let last = null;
+
+const toModel = (u) => Object.fromEntries(FIELDS.map((f) => [f.key, f.unit === 'pct' ? (+u[f.key] || 0) / 100 : +u[f.key] || 0]));
+const fromModel = (m) => Object.fromEntries(FIELDS.map((f) => [f.key, f.unit === 'pct' ? round(m[f.key] * 100, 6) : m[f.key]]));
+
+/* ----- Analytics: gtag only if present; never send input values ----- */
+function track(eventName, params = {}) {
+  if (typeof window.gtag === 'function') window.gtag('event', eventName, params);
+}
+
+/* ----- Inputs ----- */
+const $ = (id) => document.getElementById(id);
+function buildFields() {
+  $('dm-fields').innerHTML = SECTIONS.map((s) => `
+    <fieldset>
+      <legend>${esc(s.title)}</legend>
+      ${s.fields.map((f) => {
+        const pre = f.unit === 'usd' ? '<span aria-hidden="true">$</span>' : '';
+        const post = f.unit === 'pct' ? '<span aria-hidden="true">%</span>' : '';
+        const unitWord = f.unit === 'pct' ? ' (percent)' : f.unit === 'usd' ? ' (dollars)' : '';
+        return `
+        <div class="dm-field">
+          <div class="dm-field-head">
+            <label for="dm-n-${f.key}">${esc(f.label)}<span class="sr-only">${unitWord}</span></label>
+            <button type="button" class="dm-tip-btn" aria-expanded="false" aria-controls="dm-t-${f.key}" aria-label="About ${esc(f.label)}">?</button>
+          </div>
+          <p class="dm-tip" id="dm-t-${f.key}" hidden>${esc(f.tip)}</p>
+          <div class="dm-row">
+            <input type="range" id="dm-r-${f.key}" data-key="${f.key}" min="${f.min}" max="${f.max}" step="${f.step}"
+              aria-label="${esc(f.label)} slider" aria-describedby="dm-t-${f.key}">
+            <div class="dm-numbox">${pre}<input type="number" inputmode="decimal" id="dm-n-${f.key}" data-key="${f.key}"
+              min="${f.allowNegative ? f.min : 0}" ${f.unit === 'pct' ? `max="${f.max}"` : ''} step="${f.inputStep}"
+              aria-describedby="dm-t-${f.key}">${post}</div>
+          </div>
+        </div>`;
+      }).join('')}
+      ${s.extra === 'implied-ad' ? '<p class="dm-implied">Implied monthly ad spend: <strong id="dm-implied-ad" class="num"></strong></p>' : ''}
+    </fieldset>`).join('');
+
+  $('dm-fields').addEventListener('click', (e) => {
+    const b = e.target.closest('.dm-tip-btn');
+    if (!b) return;
+    const open = b.getAttribute('aria-expanded') !== 'true';
+    b.setAttribute('aria-expanded', String(open));
+    $(b.getAttribute('aria-controls')).hidden = !open;
+  });
+  $('dm-fields').addEventListener('input', (e) => {
+    const key = e.target.dataset.key;
+    if (key) onValue(key, e.target.value, e.target.type === 'range' ? 'range' : 'number');
+  });
+  $('dm-fields').addEventListener('change', (e) => {
+    const key = e.target.dataset.key;
+    if (key && e.target.type === 'number') syncField(key);
+  });
+}
+
+function clampField(f, v) {
+  let n = v !== '' && Number.isFinite(+v) ? +v : 0;
+  n = Math.max(f.allowNegative ? f.min : 0, n);
+  if (f.unit === 'pct') n = Math.min(f.max, n); // rates cannot exceed their caps (e.g. returning share 90%)
+  return n;
+}
+function onValue(key, raw, source) {
+  const f = FIELD[key];
+  ui[key] = clampField(f, raw);
+  if (source === 'range') $('dm-n-' + key).value = ui[key];
+  else $('dm-r-' + key).value = Math.min(f.max, Math.max(f.min, ui[key]));
+  if (!interacted) { interacted = true; track('dtc_model_interaction'); }
+  markEdited();
+  render();
+}
+function syncField(key) {
+  const f = FIELD[key];
+  $('dm-n-' + key).value = ui[key];
+  $('dm-r-' + key).value = Math.min(f.max, Math.max(f.min, ui[key]));
+}
+function applyInputs(modelInputs) {
+  ui = fromModel(modelInputs);
+  FIELDS.forEach((f) => syncField(f.key));
+  render();
+}
+
+/* ----- Scenario dropdown ----- */
+const scenarioLabel = (key) => (key === 'link' ? 'Scenario from shared link' : PRESETS[key].label);
+function buildPresetOptions() {
+  const keys = [...Object.keys(PRESETS), ...(linkInputs ? ['link'] : [])];
+  $('dm-preset').innerHTML = keys.map((k) => `<option value="${k}">${esc(scenarioLabel(k))}</option>`).join('');
+  $('dm-preset').value = presetKey;
+}
+function markEdited() {
+  const opt = $('dm-preset').selectedOptions[0];
+  if (opt && !opt.textContent.endsWith(' (edited)')) opt.textContent = scenarioLabel(presetKey) + ' (edited)';
+}
+const isEdited = () => ($('dm-preset').selectedOptions[0]?.textContent || '').endsWith(' (edited)');
+function loadScenario(key) {
+  presetKey = key;
+  buildPresetOptions();
+  applyInputs(key === 'link' ? linkInputs : PRESETS[key].inputs);
+}
+function loadFromHash() {
+  const decoded = location.hash.startsWith('#s=') ? decodeScenario(location.hash) : null;
+  if (!decoded) return false;
+  linkInputs = decoded;
+  loadScenario('link');
+  return true;
+}
+
+/* ----- Rendering ----- */
+function render() {
+  const r = runModel(toModel(ui));
+  last = r;
+  $('dm-implied-ad').textContent = money(r.month.adSpend);
+  renderKpis(r);
+  renderLevers(r.levers);
+  renderProjection(r.projection);
+  renderChecks(r.health, r.month);
+  renderUnit(r.month);
+  renderPL(r.month);
+  scheduleAnnounce(r);
+}
+
+const signedFixed = (d, digits, suffix) => (d > 0 ? '+' : d < 0 ? '−' : '') + Math.abs(d).toFixed(digits) + suffix;
+const KPI_DEFS = [
+  { label: 'Monthly net revenue', get: (m) => m.netRevenue, fmt: (v) => money(v), better: 'up', dfmt: signedMoney },
+  { label: 'Monthly operating profit', get: (m) => m.operatingProfit, fmt: (v) => money(v), better: 'up', dfmt: signedMoney,
+    sub: (m) => 'Operating margin ' + pct(m.operatingMargin) },
+  { label: 'Blended CAC', get: (m) => m.cac, fmt: (v) => money(v, true), better: 'down',
+    dfmt: (d) => (d > 0 ? '+' : d < 0 ? '−' : '') + fmtMoney2.format(Math.abs(d)), sub: () => 'All marketing ÷ new customers' },
+  { label: 'LTV:CAC', get: (m) => m.ltvToCac, fmt: (v) => ratio(v), better: 'up', dfmt: (d) => signedFixed(d, 2, '×'),
+    sub: (m) => 'LTV ' + money(m.ltv, true) + ' per customer' },
+  { label: 'MER', get: (m) => m.mer, fmt: (v) => ratio(v), better: 'up', dfmt: (d) => signedFixed(d, 2, '×'),
+    sub: () => 'Net revenue ÷ all marketing' },
+  { label: 'Break-even conversion rate', get: (m) => m.breakEvenCvr, better: 'down',
+    fmt: (v, m) => (v === null || !m.breakEvenCvrReachable ? 'Not reachable' : pct(v, 2)),
+    dfmt: (d) => signedFixed(d * 100, 2, ' pts'),
+    sub: (m) => (m.breakEvenCvr === null ? 'Contribution per order is zero or negative' : 'At current traffic and spend; current rate ' + pct(m.inputs.cvr, 2)) },
+];
+function renderKpis(r) {
+  const m = r.month;
+  $('dm-kpis').innerHTML = KPI_DEFS.map((k) => {
+    const v = k.get(m);
+    let delta = '';
+    if (baseline) {
+      const b = k.get(baseline.month);
+      if (isNum(v) && isNum(b)) {
+        const d = v - b;
+        const flat = Math.abs(d) <= Math.abs(b) * 1e-9 + 1e-9;
+        const cls = flat ? 'delta-flat' : (d > 0) === (k.better === 'up') ? 'delta-good' : 'delta-bad';
+        delta = `<div class="k-delta ${cls}">${flat ? 'No change' : (d > 0 ? '▲ ' : '▼ ') + k.dfmt(d)} vs. baseline</div>`;
+      } else {
+        delta = `<div class="k-delta delta-flat">Baseline: ${esc(k.fmt(b, baseline.month))}</div>`;
+      }
+    }
+    return `<div class="dm-kpi">
+      <div class="k-label">${esc(k.label)}</div>
+      <div class="k-value num">${esc(k.fmt(v, m))}</div>
+      ${k.sub ? `<div class="k-sub">${esc(k.sub(m))}</div>` : ''}
+      ${delta}
+    </div>`;
+  }).join('');
+}
+
+let announceTimer = null;
+function scheduleAnnounce(r) {
+  clearTimeout(announceTimer);
+  announceTimer = setTimeout(() => {
+    const m = r.month;
+    $('dm-live').textContent = `Results updated. Monthly net revenue ${money(m.netRevenue)}, operating profit ${money(m.operatingProfit)}, LTV to CAC ${ratio(m.ltvToCac)}.`;
+  }, 700);
+}
+
+function renderLevers(levers) {
+  const best = levers[0];
+  $('dm-lever-headline').textContent = best && best.delta > 0
+    ? `The largest lever in this scenario is ${best.name}: a 10% improvement adds ${fmtMoney0.format(best.delta)} to 12-month operating profit.`
+    : 'None of the 10% improvements increases 12-month operating profit in this scenario.';
+  const maxPos = Math.max(0, ...levers.map((l) => l.delta));
+  const maxNeg = Math.max(0, ...levers.map((l) => -l.delta));
+  const span = maxPos + maxNeg || 1;
+  const zero = (maxNeg / span) * 100;
+  $('dm-levers').innerHTML = levers.map((l) => {
+    const w = (Math.abs(l.delta) / span) * 100;
+    const left = l.delta >= 0 ? zero : zero - w;
+    return `<li class="dm-lever">
+      <span>${esc(l.label)}</span>
+      <span class="track" aria-hidden="true">
+        <span class="bar${l.delta < 0 ? ' neg' : ''}" style="left:${left}%;width:${l.delta === 0 ? 0 : Math.max(w, 0.5)}%"></span>
+        ${maxNeg > 0 ? `<span class="zero" style="left:${zero}%"></span>` : ''}
+      </span>
+      <span class="val">${signedMoney(l.delta)}</span>
+    </li>`;
+  }).join('');
+}
+
+function renderProjection(p) {
+  // Inline SVG: net revenue bars and an operating profit line on one dollar axis.
+  const W = 640, H = 260, padL = 52, padR = 12, padT = 12, padB = 26;
+  const vals = p.months.flatMap((m) => [m.netRevenue, m.operatingProfit]);
+  let yMax = Math.max(0, ...vals), yMin = Math.min(0, ...vals);
+  if (yMax === yMin) yMax = yMin + 1;
+  const ticks = niceTicks(yMin, yMax, 5);
+  yMin = Math.min(yMin, ticks[0]); yMax = Math.max(yMax, ticks[ticks.length - 1]);
+  const iw = W - padL - padR, ih = H - padT - padB;
+  const y = (v) => padT + ih - ((v - yMin) / (yMax - yMin)) * ih;
+  const band = iw / p.months.length;
+  const bw = Math.min(30, band * 0.6);
+  const cx = (i) => padL + band * i + band / 2;
+
+  let g = '';
+  ticks.forEach((t) => {
+    g += `<line x1="${padL}" x2="${W - padR}" y1="${y(t)}" y2="${y(t)}" stroke="${t === 0 ? 'var(--dm-slate)' : 'var(--dm-border)'}" stroke-width="1"/>`;
+    g += `<text x="${padL - 6}" y="${y(t) + 4}" text-anchor="end">${compactMoney(t)}</text>`;
+  });
+  p.months.forEach((m, i) => {
+    const top = y(Math.max(0, m.netRevenue)), bot = y(Math.min(0, m.netRevenue));
+    const h = Math.max(0, bot - top);
+    const r = Math.min(4, h, bw / 2), x = cx(i) - bw / 2;
+    if (h > 0) g += `<path d="M${x},${bot} V${top + r} Q${x},${top} ${x + r},${top} H${x + bw - r} Q${x + bw},${top} ${x + bw},${top + r} V${bot} Z" fill="var(--dm-chart-revenue)"/>`;
+    g += `<text x="${cx(i)}" y="${H - 8}" text-anchor="middle">${m.month}</text>`;
+  });
+  g += `<polyline points="${p.months.map((m, i) => `${cx(i)},${y(m.operatingProfit)}`).join(' ')}" fill="none" stroke="var(--dm-chart-profit)" stroke-width="2" stroke-linejoin="round"/>`;
+  p.months.forEach((m, i) => {
+    g += `<circle cx="${cx(i)}" cy="${y(m.operatingProfit)}" r="4" fill="var(--dm-chart-profit)" stroke="var(--dm-surface)" stroke-width="2"/>`;
+  });
+  p.months.forEach((m, i) => {
+    g += `<rect class="hit" data-i="${i}" x="${padL + band * i}" y="${padT}" width="${band}" height="${ih}" fill="transparent"/>`;
+  });
+  const first = p.months[0], lastM = p.months[11];
+  const desc = `Month 1 net revenue ${money(first.netRevenue)}, operating profit ${money(first.operatingProfit)}. Month 12 net revenue ${money(lastM.netRevenue)}, operating profit ${money(lastM.operatingProfit)}.`;
+  const box = $('dm-proj-chart');
+  box.innerHTML = `<svg class="dm-chart" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="dm-proj-title dm-proj-desc">
+    <title id="dm-proj-title">12-month projection of net revenue (bars) and operating profit (line)</title>
+    <desc id="dm-proj-desc">${esc(desc)}</desc>${g}</svg><div class="dm-chart-tip" hidden></div>`;
+  const tip = box.querySelector('.dm-chart-tip'), svg = box.querySelector('svg');
+  svg.querySelectorAll('.hit').forEach((h) => {
+    h.addEventListener('mouseenter', () => {
+      const i = +h.dataset.i, m = p.months[i];
+      const scale = svg.getBoundingClientRect().width / W, bw2 = box.getBoundingClientRect().width;
+      tip.innerHTML = `Month ${m.month}<br>Net revenue ${money(m.netRevenue)}<br>Operating profit ${money(m.operatingProfit)}`;
+      tip.style.left = Math.min(bw2 - 75, Math.max(75, cx(i) * scale)) + 'px';
+      tip.style.top = Math.min(y(m.operatingProfit), y(Math.max(0, m.netRevenue))) * scale + 'px';
+      tip.hidden = false;
+    });
+    h.addEventListener('mouseleave', () => { tip.hidden = true; });
+  });
+
+  $('dm-proj-table').innerHTML = `<table><thead><tr><th scope="col">Month</th><th scope="col">Sessions</th><th scope="col">Net revenue</th><th scope="col">CM2</th><th scope="col">Operating profit</th><th scope="col">Cumulative</th></tr></thead><tbody>${
+    p.months.map((m) => `<tr><td>${m.month}</td><td>${count(m.sessions)}</td><td>${money(m.netRevenue)}</td><td>${money(m.cm2)}</td><td class="${m.operatingProfit < 0 ? 'neg' : ''}">${money(m.operatingProfit)}</td><td class="${m.cumulativeOperatingProfit < 0 ? 'neg' : ''}">${money(m.cumulativeOperatingProfit)}</td></tr>`).join('')
+  }</tbody></table>`;
+
+  $('dm-proj-totals').innerHTML = dl([
+    ['Net revenue', money(p.totals.netRevenue)],
+    ['Contribution after marketing (CM2)', money(p.totals.cm2)],
+    ['Operating profit', money(p.totals.operatingProfit)],
+    ['New customers', count(p.totals.newCustomers)],
+  ]);
+  $('dm-proj-path').innerHTML = dl([
+    ['First profitable month', p.firstProfitableMonth ? 'Month ' + p.firstProfitableMonth : 'Not within 12 months'],
+    ['Operating losses to fund before break-even (excludes inventory)', money(p.peakCumulativeLoss)],
+    ['Month-12 net revenue, annualized', money(p.month12.annualizedNetRevenue)],
+    ['Month-12 operating profit, annualized', money(p.month12.annualizedOperatingProfit)],
+  ]);
+}
+function niceTicks(min, max, n) {
+  const raw = (max - min) / n;
+  const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1, 2, 2.5, 5, 10].map((s) => s * mag).find((s) => s >= raw) || raw;
+  const out = [];
+  for (let t = Math.floor(min / step) * step; t <= max + step * 0.5; t += step) out.push(Math.abs(t) < step / 1e6 ? 0 : t);
+  return out;
+}
+const dl = (rows) => rows.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
+
+const STATUS_LABEL = { green: 'Green', amber: 'Amber', red: 'Red', na: 'n/a' };
+function renderChecks(health, m) {
+  const val = { ltvcac: ratio(m.ltvToCac), firstorder: money(m.firstOrderProfit, true), cm1: pct(m.cm1Margin), op: money(m.operatingProfit) };
+  $('dm-checks').innerHTML = health.map((h) => `<li class="dm-check">
+    <span class="pill ${h.status}">${STATUS_LABEL[h.status]}</span>
+    <span><strong>${esc(h.label)}</strong><br><span class="rule">${esc(h.rule)}</span></span>
+    <span class="cval">${esc(val[h.id])}</span>
+  </li>`).join('');
+}
+
+function renderUnit(m) {
+  $('dm-unit').innerHTML = dl([
+    ['Orders per month', count(m.orders)],
+    ['New customers per month', count(m.newCustomers)],
+    ['Contribution per order (CM1)', money(m.contributionPerOrder, true)],
+    ['First-order profit after CAC', money(m.firstOrderProfit, true)],
+    ['Lifetime orders per customer (estimate)', isNum(m.lifetimeOrders) ? m.lifetimeOrders.toFixed(2) : NA],
+    ['LTV (lifetime contribution)', money(m.ltv, true)],
+    ['Orders to recover CAC', isNum(m.ordersToRecoverCac) ? m.ordersToRecoverCac.toFixed(2) : 'Not reachable'],
+    ['Break-even net revenue', m.breakEvenNetRevenue === null ? 'Not reachable' : money(m.breakEvenNetRevenue)],
+  ]);
+}
+
+function renderPL(m) {
+  const rows = [
+    ['Gross revenue', m.grossRevenue],
+    ['Returns and refunds', -m.returns],
+    ['Net revenue', m.netRevenue, 'subtotal'],
+    ['COGS', -m.cogs],
+    ['Fulfillment and shipping', -m.fulfillment],
+    ['Payment processing', -m.paymentFees],
+    ['Contribution before marketing (CM1)', m.cm1, 'subtotal'],
+    ['Ad spend', -m.adSpend],
+    ['Other marketing', -m.otherMarketing],
+    ['Contribution after marketing (CM2)', m.cm2, 'subtotal'],
+    ['Fixed operating costs', -m.fixedCosts],
+    ['Operating profit (pre-tax)', m.operatingProfit, 'total'],
+  ];
+  $('dm-pl').innerHTML = `<table><thead><tr><th scope="col">Line</th><th scope="col">Monthly</th><th scope="col">% of net revenue</th></tr></thead><tbody>${
+    rows.map(([k, v, cls]) => `<tr class="${cls || ''}"><td>${esc(k)}</td><td class="${v < 0 && cls ? 'neg' : ''}">${money(v)}</td><td>${m.netRevenue > 0 ? pct(v / m.netRevenue) : NA}</td></tr>`).join('')
+  }</tbody></table>`;
+}
+
+/* ----- Baseline (memory only) ----- */
+function setBaseline(on) {
+  baseline = on ? { month: last.month } : null;
+  $('dm-clear-baseline').hidden = !on;
+  $('dm-save-baseline').textContent = on ? 'Update baseline' : 'Save as baseline';
+  $('dm-baseline-status').textContent = on
+    ? `Baseline saved (operating profit ${money(baseline.month.operatingProfit)} per month). Results now show the change from the baseline.`
+    : 'Save a baseline to compare scenarios.';
+  renderKpis(last);
+}
+
+/* ----- Sharing ----- */
+function setStatus(msg) {
+  $('dm-status').textContent = msg;
+  clearTimeout(setStatus.t);
+  setStatus.t = setTimeout(() => { $('dm-status').textContent = ''; }, 4000);
+}
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); return true; } catch { /* fall through */ }
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  let ok = false;
+  try { ok = document.execCommand('copy'); } catch { ok = false; }
+  ta.remove();
+  return ok;
+}
+function scenarioUrl() {
+  return location.origin + location.pathname + '#s=' + encodeScenario(toModel(ui));
+}
+async function shareLink() {
+  const url = scenarioUrl();
+  history.replaceState(null, '', url);
+  const ok = await copyText(url);
+  setStatus(ok ? 'Scenario link copied. Opening it restores these inputs.' : 'Copy the link from the address bar to share this scenario.');
+  track('dtc_model_share', { share_type: 'scenario_link' });
+}
+function summaryText() {
+  const { month: m, projection: p, levers, health } = last;
+  return [
+    'DTC Economics Model, Kappa Strategy (illustrative planning tool, not financial advice)',
+    `Scenario: ${scenarioLabel(presetKey)}${isEdited() ? ' (edited)' : ''}`,
+    `Link: ${scenarioUrl()}`,
+    '',
+    'MONTHLY ASSUMPTIONS',
+    ...FIELDS.map((f) => `  ${f.label}: ${f.unit === 'usd' ? money(ui[f.key], ui[f.key] % 1 !== 0) : f.unit === 'pct' ? ui[f.key] + '%' : count(ui[f.key])}`),
+    '',
+    'MONTHLY RESULTS',
+    `  Net revenue: ${money(m.netRevenue)}`,
+    `  Contribution before marketing (CM1): ${money(m.cm1)} (${pct(m.cm1Margin)})`,
+    `  Marketing: ${money(m.marketing)} (ad spend ${money(m.adSpend)})`,
+    `  Operating profit: ${money(m.operatingProfit)} (${pct(m.operatingMargin)})`,
+    `  Blended CAC: ${money(m.cac, true)}; LTV: ${money(m.ltv, true)}; LTV:CAC: ${ratio(m.ltvToCac)}`,
+    `  MER: ${ratio(m.mer)}; break-even conversion rate: ${m.breakEvenCvrReachable ? pct(m.breakEvenCvr, 2) : 'not reachable'}`,
+    '',
+    '12-MONTH PROJECTION',
+    `  Net revenue: ${money(p.totals.netRevenue)}; CM2: ${money(p.totals.cm2)}; operating profit: ${money(p.totals.operatingProfit)}`,
+    `  New customers: ${count(p.totals.newCustomers)}`,
+    `  First profitable month: ${p.firstProfitableMonth ? 'month ' + p.firstProfitableMonth : 'not within 12 months'}`,
+    `  Operating losses to fund before break-even (excludes inventory): ${money(p.peakCumulativeLoss)}`,
+    '',
+    'LARGEST PROFIT LEVERS (10% improvement, change in 12-month operating profit)',
+    ...levers.slice(0, 3).map((l, i) => `  ${i + 1}. ${l.label}: ${signedMoney(l.delta)}`),
+    '',
+    'HEALTH CHECKS (rules of thumb)',
+    ...health.map((h) => `  ${h.label}: ${STATUS_LABEL[h.status]}`),
+  ].join('\n');
+}
+async function copySummary() {
+  const ok = await copyText(summaryText());
+  setStatus(ok ? 'Summary copied.' : 'The summary could not be copied in this browser.');
+  track('dtc_model_share', { share_type: 'summary' });
+}
+
+/* ----- Init ----- */
+function init() {
+  buildFields();
+  if (!loadFromHash()) loadScenario(DEFAULT_PRESET);
+
+  $('dm-preset').addEventListener('change', (e) => {
+    loadScenario(e.target.value);
+    if (e.target.value !== 'link') track('dtc_model_preset', { preset_name: e.target.value });
+  });
+  $('dm-reset').addEventListener('click', () => loadScenario(presetKey));
+  $('dm-share').addEventListener('click', shareLink);
+  $('dm-copy').addEventListener('click', copySummary);
+  $('dm-print').addEventListener('click', () => window.print());
+  $('dm-save-baseline').addEventListener('click', () => setBaseline(true));
+  $('dm-clear-baseline').addEventListener('click', () => setBaseline(false));
+  window.addEventListener('hashchange', loadFromHash);
+}
+init();
+</script>
+</body></html>
