@@ -1,0 +1,13 @@
+{
+  "name": "kappa-dtc-economics-model",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DTC Economics Model: direct-to-consumer channel economics calculator for kappastrategy.com/dtc-economics-model/.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/model.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
